@@ -203,10 +203,3 @@ bool Fraction::operator<=(Fraction& other) {
     other.numerator *= lcm / other.denominator;
     return numerator <= other.numerator;
 }
-/*
-int main(){
-    Fraction natural_1(1,23,2);
-    natural_1.Print();
-
-}
-*/
