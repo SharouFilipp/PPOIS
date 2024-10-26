@@ -149,6 +149,16 @@ TEST(FractionTests, ZeroDenominator) {
     EXPECT_THROW(Fraction(1, 1, 0), std::invalid_argument);
 }
 
+
+TEST(FractionTests, Constructor) {
+    Fraction fraction(1, 1, 2); 
+    Fraction result = fraction; 
+
+    EXPECT_EQ(result.getIntegerPart(), 1);
+    EXPECT_EQ(result.getNumerator(), 1);
+    EXPECT_EQ(result.getDenominator(), 2);
+}
+
 TEST(FractionTests, SumZero) {
     Fraction fraction(1, 1, 2); 
     Fraction result = fraction + 0; 
@@ -193,4 +203,64 @@ TEST(FractionTests, TestOutput) {
     std::cout.rdbuf(originalCoutBuf);
 
     EXPECT_EQ(sss.str(), "1 1/2\n");
+}
+
+TEST(FractionTests, PostIncriment) {
+    Fraction fraction(1, 1, 2); 
+    Fraction fract_1 = fraction++; 
+    fraction.Preobrazovanie();
+    fract_1.Preobrazovanie();
+
+    EXPECT_EQ(fract_1.getIntegerPart(), 1);
+    EXPECT_EQ(fract_1.getNumerator(), 1);
+    EXPECT_EQ(fract_1.getDenominator(), 2);
+    EXPECT_EQ(fraction.getIntegerPart(), 2);
+    EXPECT_EQ(fraction.getNumerator(), 1);
+    EXPECT_EQ(fraction.getDenominator(), 2);
+}
+TEST(FractionTests, PostDecriment) {
+    Fraction fraction(1, 1, 2); 
+    Fraction fract_1 = fraction--; 
+    fraction.Preobrazovanie();
+    fract_1.Preobrazovanie();
+
+    EXPECT_EQ(fract_1.getIntegerPart(), 1);
+    EXPECT_EQ(fract_1.getNumerator(), 1);
+    EXPECT_EQ(fract_1.getDenominator(), 2);
+    EXPECT_EQ(fraction.getIntegerPart(), 0);
+    EXPECT_EQ(fraction.getNumerator(), 1);
+    EXPECT_EQ(fraction.getDenominator(), 2);
+}
+TEST(FractionTests, PreIncriment) {
+    Fraction fraction(1, 1, 2); 
+    Fraction fract_1 = ++fraction; 
+    fraction.Preobrazovanie();
+    fract_1.Preobrazovanie();
+
+    EXPECT_EQ(fract_1.getIntegerPart(), 2);
+    EXPECT_EQ(fract_1.getNumerator(), 1);
+    EXPECT_EQ(fract_1.getDenominator(), 2);
+    EXPECT_EQ(fraction.getIntegerPart(), 2);
+    EXPECT_EQ(fraction.getNumerator(), 1);
+    EXPECT_EQ(fraction.getDenominator(), 2);
+}
+TEST(FractionTests, PreDecriment) {
+    Fraction fraction(1, 1, 2); 
+    Fraction fract_1 = --fraction; 
+    fraction.Preobrazovanie();
+    fract_1.Preobrazovanie();
+
+    EXPECT_EQ(fract_1.getIntegerPart(), 0);
+    EXPECT_EQ(fract_1.getNumerator(), 1);
+    EXPECT_EQ(fract_1.getDenominator(), 2);
+    EXPECT_EQ(fraction.getIntegerPart(), 0);
+    EXPECT_EQ(fraction.getNumerator(), 1);
+    EXPECT_EQ(fraction.getDenominator(), 2);
+}
+
+TEST(FractionTests, Convert_double) {
+    Fraction fraction(1, 1, 2); 
+    double value = fraction.Convert();
+     
+    EXPECT_EQ(value, 1.5);
 }

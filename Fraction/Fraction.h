@@ -30,7 +30,6 @@ public:
 	Fraction operator*(int chislo);
 	Fraction& operator*=(int chislo);
 
-
 	Fraction operator/(Fraction& other);
 	Fraction& operator/=(Fraction& other);
 	Fraction operator/(int chislo);
@@ -40,4 +39,10 @@ public:
 	bool operator>(Fraction& other);
 	bool operator<=(Fraction& other);
 	bool operator>=(Fraction& other);
+
+	Fraction operator--(int);   
+	Fraction operator++(int); 
+	Fraction& operator--(); 
+	Fraction& operator++(); 
+	double Convert() const;
 };

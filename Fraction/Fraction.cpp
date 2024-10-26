@@ -2,7 +2,6 @@
 #include "Fraction.h"
 using namespace std;
 
-
 Fraction::Fraction(int integerPart, int numerator, int denominator) : integerPart(integerPart), numerator(numerator), denominator(denominator)
 {
     if (denominator != 0) 
@@ -14,16 +13,14 @@ Fraction::Fraction(int integerPart, int numerator, int denominator) : integerPar
     }
     else throw invalid_argument("Знаменатель не может быть равен нулю");
 }
+
 Fraction::Fraction(const Fraction& other) : integerPart(other.integerPart), numerator(other.numerator), denominator(other.denominator)
 {
-    if (denominator != 0) 
-    {
-        this->numerator = other.numerator;
-        this->denominator = other.denominator;
-        this->integerPart = other.integerPart;
-        Preobrazovanie();
-    }
-    else throw invalid_argument("Знаменатель не может быть равен нулю");
+
+    this->numerator = other.numerator;
+    this->denominator = other.denominator;
+    this->integerPart = other.integerPart;
+    Preobrazovanie();
 }
 
 void Fraction::Print()
@@ -114,8 +111,6 @@ Fraction& Fraction::operator-=(int chislo) {
     return *this;
 }
 
-
-
 Fraction Fraction::operator*(Fraction& other)
 {
     return Fraction(0, (numerator + integerPart * denominator) * (other.numerator + other.integerPart * other.denominator), denominator * other.denominator);
@@ -161,9 +156,6 @@ Fraction& Fraction::operator/=(int chislo) {
     return *this;
 }
 
-
-
-
 bool Fraction::operator<(Fraction& other)
 {
     int lcm = LCM(denominator, other.denominator);
@@ -202,4 +194,40 @@ bool Fraction::operator<=(Fraction& other) {
     other.numerator += other.integerPart * other.denominator;
     other.numerator *= lcm / other.denominator;
     return numerator <= other.numerator;
+}
+
+Fraction Fraction::operator--(int) 
+{        
+    Fraction fract = *this;
+    this->numerator += this->integerPart * this->denominator - this->denominator;
+    this->integerPart = 0;
+    return fract; 
+        
+}
+Fraction Fraction::operator++(int) 
+{        
+    Fraction fract = *this;
+    this->numerator += this->integerPart * this->denominator + this->denominator;
+    this->integerPart = 0;
+    return fract;   
+           
+}
+
+Fraction& Fraction::operator--() 
+{        
+    Fraction fract = *this;
+    numerator += integerPart * denominator - denominator;
+    integerPart = 0;
+    return *this;         
+}
+Fraction& Fraction::operator++() 
+{        
+    Fraction fract = *this;
+    this->numerator += this->integerPart * this->denominator + this->denominator;
+    this->integerPart = 0;
+    return *this;       
+}
+
+double Fraction::Convert() const{
+    return static_cast<double>(numerator + integerPart * denominator) / denominator;
 }
