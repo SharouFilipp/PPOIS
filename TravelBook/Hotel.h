@@ -10,7 +10,7 @@ private:
     string name;                
     string location;           
     double rating;                   
-    vector<class Review*> reviews;
+    vector<Review*> reviews;
     vector<Media*> media;
 public:
     Hotel(string name, string location, double rating);
