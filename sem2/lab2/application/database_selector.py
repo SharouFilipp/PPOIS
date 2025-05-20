@@ -33,4 +33,4 @@ class DatabaseSelectionDialog(QDialog):
         self.setLayout(layout)
     
     def get_selected_db_type(self):
-        return self.db_combo.currentText().lower()  # Возвращаем в нижнем регистре
+        return self.db_combo.currentText().lower()  
