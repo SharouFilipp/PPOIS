@@ -10,7 +10,6 @@ class XMLDatabase:
         self._initialize_file()
     
     def _initialize_file(self):
-        """Инициализация XML-файла, если он не существует"""
         if not os.path.exists(self.xml_path):
             doc = minidom.Document()
             root = doc.createElement("students")
@@ -18,16 +17,13 @@ class XMLDatabase:
             self._write_xml(doc)
     
     def _write_xml(self, doc: minidom.Document):
-        """Запись XML-документа в файл с форматированием"""
         with open(self.xml_path, "w", encoding="utf-8") as f:
             f.write(doc.toprettyxml(indent="    "))
     
     def add_student(self, student: Student) -> int:
-        """Добавление студента в XML с использованием DOM"""
         doc = minidom.parse(self.xml_path)
         root = doc.getElementsByTagName("students")[0]
         
-        # Находим максимальный ID
         students = root.getElementsByTagName("student")
         max_id = 0
         for s in students:
@@ -60,7 +56,6 @@ class XMLDatabase:
         return new_id
     
     def get_all_students(self) -> List[Student]:
-        """Чтение всех студентов из XML с использованием SAX"""
         handler = StudentSAXHandler()
         parser = xml.sax.make_parser()
         parser.setContentHandler(handler)
@@ -68,7 +63,6 @@ class XMLDatabase:
         return handler.students
     
     def search_student(self, filt: str, value: str) -> List[Student]:
-        """Поиск студентов по критерию с использованием SAX"""
         all_students = self.get_all_students()
         filtered = []
         
@@ -101,7 +95,6 @@ class XMLDatabase:
         return filtered
     
     def delete_student(self, filt: str, value: str) -> int:
-        """Удаление студентов по критерию с использованием DOM"""
         doc = minidom.parse(self.xml_path)
         root = doc.getElementsByTagName("students")[0]
         students = root.getElementsByTagName("student")
@@ -149,7 +142,6 @@ class XMLDatabase:
         return deleted_count
 
 class StudentSAXHandler(xml.sax.ContentHandler):
-    """SAX-обработчик для чтения студентов из XML"""
     def __init__(self):
         super().__init__()
         self.students = []
